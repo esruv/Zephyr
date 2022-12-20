@@ -1,0 +1,20 @@
+## Interface: 100002
+## Title: Zephyr
+## Notes: Simple, clean, and elegant.
+## Author : Esruv
+## SavedVariables: ZephyrDB
+## Version: 1.0.0
+## OptionalDeps: Ace3
+
+# Embeds
+Libs\embeds.xml
+
+# Core Init Files
+Main.lua
+Options.lua
+
+# Modules
+#Modules\General.lua
+#Modules\ActionBars.lua
+Modules\UnitFrames.lua
+#Modules\Misc.lua
