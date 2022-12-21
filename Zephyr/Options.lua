@@ -1,4 +1,6 @@
-local _, ns = ...
+local addonName, ns = ...
+local addonTitle = GetAddOnInfo(addonName)
+local exclamation = "|TInterface\\Cursor\\Quest:12:12:1:0:64:64:9:60:9:60|t"
 
 ZPR.defaults = {
 	profile = {
@@ -9,11 +11,47 @@ ZPR.defaults = {
 }
 
 ZPR.options = {
+	name = "Zephyr",
 	type = "group",
 	args = {
+		title = {
+			name = addonTitle .. " v" .. GetAddOnMetadata(addonName, "Version"),
+			type = "description",
+			fontSize = "large",
+			order = 1
+		},
+		description = {
+			name = "Lightweight modifications to the default Blizzard Interface to improve gameplay.",
+			type = "description",
+			fontSize = "medium",
+			order = 2
+		},
+		spacer1 = {
+			name = "",
+			type = "header",
+			order = 3
+		},
+		reloadReminder = {
+			name = exclamation .. "UI must be reloaded for changes to take affect fully.",
+			type = "description",
+			fontSize = "medium",
+			order = 4
+		},
+		spacer2 = {
+			name = "",
+			type = "header",
+			order = 5
+		},
+		reloadButton = {
+			name = "Reload UI",
+			type = "execute",
+			func = ReloadUI,
+			order = 6,
+			width = 0.6
+		},
 		modules = {
-			type = "group",
 			name = "Modules",
+			type = "group",
 			desc = "Configure individual modules.",
 			args = {
 				general = {
@@ -52,7 +90,7 @@ ZPR.options = {
 					name = "Misc",
 					desc = "Configure options for the Misc module.",
 					args = {}
-				}
+				},
 			}
 		}
 	}

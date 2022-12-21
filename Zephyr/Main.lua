@@ -9,8 +9,9 @@ local ADB = LibStub("AceDB-3.0")
 function ZPR:OnInitialize()
 	self.db = ADB:New("ZephyrDB", self.defaults, true)
 
-	AC:RegisterOptionsTable("Zephyr Options", self.options)
-	self.optionsFrame = ACD:AddToBlizOptions("Zephyr Options", "Zephyr")
+	AC:RegisterOptionsTable("Zephyr_Options", self.options)
+	ACD:SetDefaultSize("Zephyr_Options", 550, 650)
+	self.optionsFrame = ACD:AddToBlizOptions("Zephyr_Options", "Zephyr")
 
 	local profiles = LibStub("AceDBOptions-3.0"):GetOptionsTable(self.db)
 	AC:RegisterOptionsTable("Zephyr_Profiles", profiles)
@@ -49,8 +50,8 @@ function ZPR:SlashCommand(input)
 		self.db:ResetProfile()
 		self:Print("Profile has been reset.")
 	elseif ACD.OpenFrames["Zephyr Options"] then
-		ACD:Close("Zephyr Options")
+		ACD:Close("Zephyr_Options")
 	else
-		ACD:Open("Zephyr Options")
+		ACD:Open("Zephyr_Options")
 	end
 end
