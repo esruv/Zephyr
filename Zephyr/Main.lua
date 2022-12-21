@@ -10,7 +10,7 @@ function ZPR:OnInitialize()
 	self.db = ADB:New("ZephyrDB", self.defaults, true)
 
 	AC:RegisterOptionsTable("Zephyr_Options", self.options)
-	ACD:SetDefaultSize("Zephyr_Options", 550, 650)
+	ACD:SetDefaultSize("Zephyr_Options", 570, 650)
 	self.optionsFrame = ACD:AddToBlizOptions("Zephyr_Options", "Zephyr")
 
 	local profiles = LibStub("AceDBOptions-3.0"):GetOptionsTable(self.db)
