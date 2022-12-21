@@ -3,56 +3,68 @@ local ZPR = LibStub("AceAddon-3.0"):GetAddon("Zephyr")
 local classColors = ZPR:NewModule("classColors", "AceEvent-3.0")
 local pvpIcon = ZPR:NewModule("pvpIcon", "AceEvent-3.0")
 local feedbackText = ZPR:NewModule("feedbackText", "AceEvent-3.0")
+local groupIndicator = ZPR:NewModule("groupIndicator", "AceEvent-3.0")
+local restIndicator = ZPR:NewModule("restIndicator", "AceEvent-3.0")
 local combatIndicator = ZPR:NewModule("combatIndicator", "AceEvent-3.0")
 local repColor = ZPR:NewModule("repColor", "AceEvent-3.0")
 
-local playerFrameContentMain = PlayerFrame.PlayerFrameContent.PlayerFrameContentMain
-local targetFrameContentMain = TargetFrame.TargetFrameContent.TargetFrameContentMain
-local focusFrameContentMain = FocusFrame.TargetFrameContent.TargetFrameContentMain
+local playerFrameMain = PlayerFrame.PlayerFrameContent.PlayerFrameContentMain
+local targetFrameMain = TargetFrame.TargetFrameContent.TargetFrameContentMain
+local focusFrameMain = FocusFrame.TargetFrameContent.TargetFrameContentMain
 
-local playerFrameTargetContextual = PlayerFrame_GetPlayerFrameContentContextual()
+local playerFrameContextual = PlayerFrame_GetPlayerFrameContentContextual()
 local targetFrameContextual = TargetFrame.TargetFrameContent.TargetFrameContentContextual
 local focusFrameContextual = FocusFrame.TargetFrameContent.TargetFrameContentContextual
 
 function classColors:OnEnable()
+	local function handleUnitFramePortraitUpdate(self)
+		local healthBar = self.HealthBar
 
-	local function SetClassColors(self)
-		if UnitIsPlayer(self.unit) and UnitIsConnected(self.unit) then
-			local _, class = UnitClass(self.unit)
-			local color = RAID_CLASS_COLORS[class]
-			if color then
-				self:SetStatusBarColor(color.r, color.g, color.b)
-				self:SetStatusBarDesaturated(true)
-			elseif UnitIsTapped(self.unit) and not UnitIsTappedByPlayer(self.unit) then
-				self:SetStatusBarColor(0.5, 0.5, 0.5)
-				self:SetStatusBarDesaturated(true)
+		if self.unit == "player" then
+			-- if player is in a vehicle color the pet frame instead
+			if UnitInVehicle(self.unit) then
+				healthBar = PetFrameHealthBar
 			else
-				self:SetStatusBarColor(0.0, 1.0, 0.0)
-				self:SetStatusBarDesaturated(true)
+				healthBar = playerFrameMain.HealthBarArea.HealthBar
 			end
-		elseif UnitIsPlayer(self.unit) then
-			self:SetStatusBarColor(0.5, 0.5, 0.5)
-			self:SetStatusBarDesaturated(true)
-		else
-			self:SetStatusBarColor(0.0, 1.0, 0.0)
-			self:SetStatusBarDesaturated(true)
+
+		elseif self.unit == "pet" then
+			healthBar = PetFrameHealthBar
+		elseif self.unit == "target" then
+			healthBar = targetFrameMain.HealthBar
+		elseif self.unit == "focus" then
+			healthBar = focusFrameMain.HealthBar
+		elseif self.unit == "vehicle" then
+			healthBar = playerFrameMain.HealthBarArea.HealthBar
+		end
+
+		if not healthBar then
+			return
+		end
+
+		if UnitIsPlayer(self.unit) and UnitIsConnected(self.unit) and classColors:IsEnabled() then
+			local _, const_class = UnitClass(self.unit);
+			local r, g, b = GetClassColor(const_class)
+			healthBar:SetStatusBarDesaturated(true)
+			healthBar:SetStatusBarColor(r, g, b)
+		elseif UnitIsPlayer(self.unit) and not UnitIsConnected(self.unit) then
+			healthBar:SetStatusBarDesaturated(true)
+			healthBar:SetStatusBarColor(1, 1, 1)
 		end
 	end
 
-	hooksecurefunc("HealthBar_OnValueChanged", SetClassColors)
-	hooksecurefunc("UnitFrameHealthBar_Update", SetClassColors)
-
+	hooksecurefunc("UnitFramePortrait_Update", handleUnitFramePortraitUpdate)
 end
 
 function repColor:OnEnable()
-	targetFrameContentMain.ReputationColor:Hide()
-	focusFrameContentMain.ReputationColor:Hide()
+	targetFrameMain.ReputationColor:Hide()
+	focusFrameMain.ReputationColor:Hide()
 end
 
 function pvpIcon:OnEnable()
-	playerFrameTargetContextual.PVPIcon:SetAlpha(0)
-	playerFrameTargetContextual.PrestigePortrait:SetAlpha(0)
-	playerFrameTargetContextual.PrestigeBadge:SetAlpha(0)
+	playerFrameContextual.PVPIcon:SetAlpha(0)
+	playerFrameContextual.PrestigePortrait:SetAlpha(0)
+	playerFrameContextual.PrestigeBadge:SetAlpha(0)
 
 	targetFrameContextual.PvpIcon:SetAlpha(0)
 	targetFrameContextual.PrestigePortrait:SetAlpha(0)
@@ -68,6 +80,14 @@ function feedbackText:OnEnable()
 	PlayerHitIndicator.SetText = function() end
 	PetHitIndicator:SetText(nil)
 	PetHitIndicator.SetText = function() end
+end
+
+function groupIndicator:OnEnable()
+	playerFrameContextual.GroupIndicator:SetAlpha(0)
+end
+
+function restIndicator:OnEnable()
+	playerFrameContextual.PlayerRestLoop:SetAlpha(0)
 end
 
 function combatIndicator:OnEnable()
@@ -87,8 +107,8 @@ function combatIndicator:OnEnable()
 		end
 	end
 
-	local g = CreateFrame("Frame")
-	g:SetScript("OnUpdate", function(self)
+	local CI = CreateFrame("Frame")
+	CI:SetScript("OnUpdate", function(self)
 		FrameOnUpdate(CTT)
 	end)
 	CFT = CreateFrame("Frame")
@@ -107,8 +127,8 @@ function combatIndicator:OnEnable()
 		end
 	end
 
-	local g = CreateFrame("Frame")
-	g:SetScript("OnUpdate", function(self)
+	local CI = CreateFrame("Frame")
+	CI:SetScript("OnUpdate", function(self)
 		FrameOnUpdate(CFT)
 	end)
 end

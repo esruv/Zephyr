@@ -3,7 +3,7 @@
 ## Notes: Simple, clean, and elegant.
 ## Author: Esruv
 ## SavedVariables: ZephyrDB
-## Version: 1.0.3
+## Version: 1.1.0
 ## OptionalDeps: Ace3
 
 # Embeds
@@ -14,7 +14,7 @@ Main.lua
 Options.lua
 
 # Modules
-#Modules\General.lua
-#Modules\ActionBars.lua
+Modules\General.lua
+Modules\ActionBars.lua
 Modules\UnitFrames.lua
-#Modules\Misc.lua
+Modules\Miscellaneous.lua

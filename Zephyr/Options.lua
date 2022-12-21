@@ -6,17 +6,25 @@ ZPR.defaults = {
 	profile = {
 		modules = {
 			-- General
-
+			minimapZoomButtons = false,
+			castBarTimer = true,
+			playerCastBarIcon = true,
 			-- Action Bars
-
+			keybindText = false,
+			macroText = true,
+			shortKeybindText = true,
 			-- Unit Frames
 			pvpIcon = true,
 			feedbackText = true,
+			groupIndicator = true,
+			restIndicator = true,
 			classColors = true,
+			repColor = true,
 			combatIndicator = true,
-
 			-- Miscellaneous
-
+			talkingHead = true,
+			partyFrameText = true,
+			buffFrameCollapseExpand = true,
 		}
 	}
 }
@@ -70,14 +78,118 @@ ZPR.options = {
 					name = "General",
 					desc = "Configure options for the General module.",
 					order = 1,
-					args = {}
+					args = {
+						header_Visibility = {
+							type = "header",
+							name = "Visibility",
+							order = 1
+						},
+						minimapZoomButtons = {
+							type = "toggle",
+							name = "Minimap Buttons",
+							desc = "Disable or enable the Minimap Zoom In/Out buttons.",
+							order = 2,
+							set = function(info, value)
+								ZPR.db.profile.modules.minimapZoomButtons = value
+								ZPR:ToggleModules()
+							end,
+							get = function(info)
+								return ZPR.db.profile.modules.minimapZoomButtons
+							end
+						},
+						header_General = {
+							type = "header",
+							name = "General",
+							order = 3
+						},
+						castBarTimer = {
+							type = "toggle",
+							name = "Cast Bar Timer",
+							desc = "Enable or disable the cast bar timer.",
+							order = 4,
+							set = function(info, value)
+								ZPR.db.profile.modules.castBarTimer = value
+								ZPR:ToggleModules()
+							end,
+							get = function(info)
+								return ZPR.db.profile.modules.castBarTimer
+							end
+						},
+						playerCastBarIcon = {
+							type = "toggle",
+							name = "Player Cast Bar Icon",
+							desc = "Enable or disable the player cast bar icon.",
+							order = 5,
+							set = function(info, value)
+								ZPR.db.profile.modules.playerCastBarIcon = value
+								ZPR:ToggleModules()
+							end,
+							get = function(info)
+								return ZPR.db.profile.modules.playerCastBarIcon
+							end
+						},
+					}
 				},
 				actionBars = {
 					type = "group",
 					name = "Action Bars",
 					desc = "Configure options for the Action Bars module.",
 					order = 2,
-					args = {}
+					args = {
+						header_Visibility = {
+							type = "header",
+							name = "Visibility",
+							width = "full",
+							order = 1
+						},
+						keybindText = {
+							type = "toggle",
+							name = "Keybind Text",
+							desc = "Disable or enable the keybind text on Action Bars.",
+							width = "0.285",
+							order = 2,
+							set = function(info, value)
+								ZPR.db.profile.modules.keybindText = value
+								ZPR:ToggleModules()
+							end,
+							get = function(info)
+								return ZPR.db.profile.modules.keybindText
+							end
+						},
+						macroText = {
+							type = "toggle",
+							name = "Macro Text",
+							desc = "Disable or enable the macro text on Action Bars.",
+							order = 3,
+							set = function(info, value)
+								ZPR.db.profile.modules.macroText = value
+								ZPR:ToggleModules()
+							end,
+							get = function(info)
+								return ZPR.db.profile.modules.macroText
+							end
+						},
+						header_General = {
+							type = "header",
+							name = "General Action Bars Customization",
+							width = "full",
+							order = 4
+						},
+						shortKeybindText = {
+							type = "toggle",
+							name = "Short Keybind Text",
+							desc = "Enable or disable short keybind text on Action Bars.",
+							width = "0.285",
+							order = 5,
+							set = function(info, value)
+								ZPR.db.profile.modules.shortKeybindText = value
+								ZPR:ToggleModules()
+							end,
+							get = function(info)
+								return ZPR.db.profile.modules.shortKeybindText
+							end
+						},
+					}
 				},
 				unitFrames = {
 					type = "group",
@@ -85,23 +197,18 @@ ZPR.options = {
 					desc = "Configure options for the Unit Frames module.",
 					order = 3,
 					args = {
-						header_visibility = {
+						header_Visibility = {
 							type = "header",
 							name = "Visibility",
 							width = "full",
 							order = 1
 						},
-						spacer3 = {
-							name = "",
-							type = "description",
-							order = 2
-						},
 						pvpIcon = {
 							type = "toggle",
 							name = "PvP Icon",
-							desc = "Enable or disable the PvP icon for unit frames.",
-							width = "half",
-							order = 3,
+							desc = "Disable or enable the PvP icon for Unit Frames.",
+							width = "0.285",
+							order = 2,
 							set = function(info, value)
 								ZPR.db.profile.modules.pvpIcon = value
 								ZPR:ToggleModules()
@@ -114,7 +221,7 @@ ZPR.options = {
 							type = "toggle",
 							name = "Feedback Text",
 							desc = "Disable or enable feedback text for the Player & Pet Portraits.",
-							order = 4,
+							order = 3,
 							set = function(info, value)
 								ZPR.db.profile.modules.feedbackText = value
 								ZPR:ToggleModules()
@@ -123,17 +230,45 @@ ZPR.options = {
 								return ZPR.db.profile.modules.feedbackText
 							end
 						},
+						groupIndicator = {
+							type = "toggle",
+							name = "Group Indicator",
+							desc = "Disable or enable the group indicator for Unit Frames.",
+							width = "0.285",
+							order = 4,
+							set = function(info, value)
+								ZPR.db.profile.modules.groupIndicator = value
+								ZPR:ToggleModules()
+							end,
+							get = function(info)
+								return ZPR.db.profile.modules.groupIndicator
+							end
+						},
+						restIndicator = {
+							type = "toggle",
+							name = "Rest Indicator",
+							desc = "Disable or enable the rest indicator for Unit Frames.",
+							order = 5,
+							set = function(info, value)
+								ZPR.db.profile.modules.restIndicator = value
+								ZPR:ToggleModules()
+							end,
+							get = function(info)
+								return ZPR.db.profile.modules.restIndicator
+							end
+						},
 						header_General = {
 							type = "header",
 							name = "General Unit Frame Customization",
 							width = "full",
-							order = 5
+							order = 6
 						},
 						classColors = {
 							type = "toggle",
 							name = "Class Colors",
-							desc = "Enable or disable class colors for unit frames.",
-							order = 6,
+							desc = "Enable or disable class colors for Unit Frames.",
+							width = "0.285",
+							order = 7,
 							set = function(info, value)
 								ZPR.db.profile.modules.classColors = value
 								ZPR:ToggleModules()
@@ -145,9 +280,8 @@ ZPR.options = {
 						repColor = {
 							type = "toggle",
 							name = "Rep Colors",
-							desc = "Disable or enable reputation colors for unit frames.",
-							width = "half",
-							order = 7,
+							desc = "Disable or enable reputation colors for Unit Frames.",
+							order = 8,
 							set = function(info, value)
 								ZPR.db.profile.modules.repColor = value
 								ZPR:ToggleModules()
@@ -160,14 +294,15 @@ ZPR.options = {
 							type = "header",
 							name = "Miscellaneous Unit Frame Customization",
 							width = "full",
-							order = 8
+							order = 9
 
 						},
 						combatIndicator = {
 							type = "toggle",
 							name = "Combat Indicator",
 							desc = "Enable or disable a icon to the right of target/focus frames to indicate combat status.",
-							order = 9,
+							width = "0.285",
+							order = 10,
 							set = function(info, value)
 								ZPR.db.profile.modules.combatIndicator = value
 								ZPR:ToggleModules()
@@ -178,12 +313,73 @@ ZPR.options = {
 						},
 					},
 				},
-				misc = {
+				miscellaneous = {
 					type = "group",
-					name = "Misc",
-					desc = "Configure options for the Misc module.",
-					order = 5,
-					args = {}
+					name = "Miscellaneous",
+					desc = "Configure options for the Miscellaneous module.",
+					order = 4,
+					args = {
+						header = {
+							type = "header",
+							name = "Visibility",
+							width = "full",
+							order = 1
+						},
+						partyFrameTitle = {
+							type = "toggle",
+							name = "Party Frame Title",
+							desc = "Disable or enable the 'Party' text on the Party Frames Header.",
+							width = "0.285",
+							order = 2,
+							set = function(info, value)
+								ZPR.db.profile.modules.partyFrameTitle = value
+								ZPR:ToggleModules()
+							end,
+							get = function(info)
+								return ZPR.db.profile.modules.partyFrameTitle
+							end
+						},
+						mouseoverRaidManager = {
+							type = "toggle",
+							name = "Raid Manager",
+							desc = "Enable or disable the Raid Manager to only show when moused over.",
+							order = 3,
+							set = function(info, value)
+								ZPR.db.profile.modules.mouseoverRaidManager = value
+								ZPR:ToggleModules()
+							end,
+							get = function(info)
+								return ZPR.db.profile.modules.mouseoverRaidManager
+							end
+						},
+						buffFrameCollapseExpand = {
+							type = "toggle",
+							name = "Buff Frame Toggle",
+							desc = "Disable or enable the Buff Frame Collapse/Expand Button.",
+							width = "0.285",
+							order = 4,
+							set = function(info, value)
+								ZPR.db.profile.modules.buffFrameCollapseExpand = value
+								ZPR:ToggleModules()
+							end,
+							get = function(info)
+								return ZPR.db.profile.modules.buffFrameCollapseExpand
+							end
+						},
+						talkingHead = {
+							type = "toggle",
+							name = "Talking Head",
+							desc = "Disable or enable the talking head frame.",
+							order = 5,
+							set = function(info, value)
+								ZPR.db.profile.modules.talkingHead = value
+								ZPR:ToggleModules()
+							end,
+							get = function(info)
+								return ZPR.db.profile.modules.talkingHead
+							end
+						}
+					}
 				},
 			}
 		}

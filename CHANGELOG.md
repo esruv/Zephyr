@@ -21,3 +21,22 @@ All notable changes to this project will be documented in this file.
 -   Implemented `Hide Rep Color` for Unit Frames.
 -   Implemented `Hide Feedback Text` for Unit Frames.
 -   Implemented `Hide PvP Icon` for Unit Frames.
+
+## [1.1.0] 2022-12-21
+
+-   Implemented `Hide Minimap Buttons` for General.
+-   Implemented `Cast Bar Timer` for General.
+-   Implemented `Cast Bar Icon` for General.
+-   Implemented `Hide Keybind Text` for Action Bars.
+-   Implemented `Hide Macro Text` for Action Bars.
+-   Implemented `Shorten Keybind Text` for Action Bars.
+-   Implemented `Hide Feedback Text` for Unit Frames.
+-   Implemented `Hide Group Indicator` for Unit Frames.
+-   Implemented `Hide Rest Indicator` for Unit Frames.
+-   Implemented `Combat Indicator` for Unit Frames.
+-   Implemented `Hide Party Frame Title` for Miscellaneous.
+-   Implemented `Raid Frame Manager Mouseover` for Miscellaneous.
+-   Implemented `Hide Talking Head Frame` for Miscellaneous.
+-   Implemented `Hide Buff Frame Expand/Collapse Button` for Miscellaneous.
+
+-   Tidied up the `Addon GUI`.
