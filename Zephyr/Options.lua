@@ -290,11 +290,38 @@ ZPR.options = {
 								return ZPR.db.profile.modules.repColor
 							end
 						},
+						targetCastBarOnTop = {
+							type = "toggle",
+							name = "Target Cast Bar On Top",
+							desc = "Enable or disable the Target Cast Bar to be on top of the Target Frame.",
+							width = "0.285",
+							order = 9,
+							set = function(info, value)
+								ZPR.db.profile.modules.targetCastBarOnTop = value
+								ZPR:ToggleModules()
+							end,
+							get = function(info)
+								return ZPR.db.profile.modules.targetCastBarOnTop
+							end
+						},
+						focusCastBarOnTop = {
+							type = "toggle",
+							name = "Focus Cast Bar On Top",
+							desc = "Enable or disable the Focus Cast Bar to be on top of the Focus Frame.",
+							order = 10,
+							set = function(info, value)
+								ZPR.db.profile.modules.focusCastBarOnTop = value
+								ZPR:ToggleModules()
+							end,
+							get = function(info)
+								return ZPR.db.profile.modules.focusCastBarOnTop
+							end
+						},
 						header_Misc = {
 							type = "header",
 							name = "Miscellaneous Unit Frame Customization",
 							width = "full",
-							order = 9
+							order = 11
 
 						},
 						combatIndicator = {
@@ -302,7 +329,7 @@ ZPR.options = {
 							name = "Combat Indicator",
 							desc = "Enable or disable a icon to the right of target/focus frames to indicate combat status.",
 							width = "0.285",
-							order = 10,
+							order = 12,
 							set = function(info, value)
 								ZPR.db.profile.modules.combatIndicator = value
 								ZPR:ToggleModules()

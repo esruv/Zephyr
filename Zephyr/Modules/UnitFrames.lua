@@ -1,12 +1,16 @@
 local ZPR = LibStub("AceAddon-3.0"):GetAddon("Zephyr")
 
+local spellBarHookSet = false
+
 local classColors = ZPR:NewModule("classColors", "AceEvent-3.0")
 local pvpIcon = ZPR:NewModule("pvpIcon", "AceEvent-3.0")
 local feedbackText = ZPR:NewModule("feedbackText", "AceEvent-3.0")
 local groupIndicator = ZPR:NewModule("groupIndicator", "AceEvent-3.0")
 local restIndicator = ZPR:NewModule("restIndicator", "AceEvent-3.0")
-local combatIndicator = ZPR:NewModule("combatIndicator", "AceEvent-3.0")
 local repColor = ZPR:NewModule("repColor", "AceEvent-3.0")
+local combatIndicator = ZPR:NewModule("combatIndicator", "AceEvent-3.0")
+local targetCastBarOnTop = ZPR:NewModule("targetCastBarOnTop", "AceEvent-3.0")
+local focusCastBarOnTop = ZPR:NewModule("focusCastBarOnTop", "AceEvent-3.0")
 
 local playerFrameMain = PlayerFrame.PlayerFrameContent.PlayerFrameContentMain
 local targetFrameMain = TargetFrame.TargetFrameContent.TargetFrameContentMain
@@ -88,6 +92,31 @@ end
 
 function restIndicator:OnEnable()
 	playerFrameContextual.PlayerRestLoop:SetAlpha(0)
+end
+
+local function handleTargetFrameSpellBar_OnUpdate(self, arg1, ...)
+	if targetCastBarOnTop:IsEnabled() then
+		self:SetPoint("TOPLEFT", TargetFrame, "TOPLEFT", 45, 15)
+	end
+end
+
+local function handleFocusFrameSpellBar_OnUpdate(self, arg1, ...)
+	if focusCastBarOnTop:IsEnabled() then
+		if FocusFrame.smallSize then
+			self:SetPoint("TOPLEFT", FocusFrame, "TOPLEFT", 38, 15)
+		else
+			self:SetPoint("TOPLEFT", FocusFrame, "TOPLEFT", 45, 15)
+		end
+	end
+end
+
+function targetCastBarOnTop:OnEnable()
+	TargetFrameSpellBar:HookScript("OnUpdate", handleTargetFrameSpellBar_OnUpdate)
+end
+
+function focusCastBarOnTop:OnEnable()
+
+	FocusFrameSpellBar:HookScript("OnUpdate", handleFocusFrameSpellBar_OnUpdate)
 end
 
 function combatIndicator:OnEnable()

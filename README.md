@@ -25,6 +25,8 @@ Simple & lightweight World of Warcraft addon that customizes the default UI.
 -   Class colored health bars.
 -   Hide reputation color on target/focus frame.
 -   Combat Indicator for target/focus frame.
+-   Target Cast Bar On top of the target frame.
+-   Focus Cast Bar On top of the focus frame.
 
 ### Miscellaneous
 

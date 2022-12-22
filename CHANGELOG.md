@@ -44,3 +44,8 @@ All notable changes to this project will be documented in this file.
 ## [1.1.1] 2022-12-22
 
 -   Fixed a problem with the `Shorten Keybind Text` option.
+
+## [1.1.2] 2022-12-22
+
+-   Implemented `Target Cast Bar On Top` for Unit Frames.
+-   Implemented `Focus Cast Bar On Top` for Unit Frames.
