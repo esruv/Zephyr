@@ -49,3 +49,7 @@ All notable changes to this project will be documented in this file.
 
 -   Implemented `Target Cast Bar On Top` for Unit Frames.
 -   Implemented `Focus Cast Bar On Top` for Unit Frames.
+
+## [1.1.3] 2022-12-22
+
+-   Implemented `Custom HP Format` for Miscellaneous. (More or less for me.)

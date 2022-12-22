@@ -34,6 +34,7 @@ Simple & lightweight World of Warcraft addon that customizes the default UI.
 -   Raid Frame Manager Mouseover (Mouseover to show/hide the Raid Frame Manager).
 -   Hide Buff Frame Expand/Collapse Button.
 -   Hide Talking Head Frame.
+-   Custom HP Format (No Options Currently, Quite Personal)
 
 ## Options
 

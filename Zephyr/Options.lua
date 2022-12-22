@@ -20,7 +20,10 @@ ZPR.defaults = {
 			restIndicator = true,
 			classColors = true,
 			repColor = true,
+			targetCastBarOnTop = false,
+			focusCastBarOnTop = true,
 			combatIndicator = true,
+			customHPFormat = true,
 			-- Miscellaneous
 			talkingHead = true,
 			partyFrameText = true,
@@ -405,8 +408,27 @@ ZPR.options = {
 							get = function(info)
 								return ZPR.db.profile.modules.talkingHead
 							end
-						}
-					}
+						},
+						header_CustomHP = {
+							type = "header",
+							name = "Custom Health Text",
+							width = "full",
+							order = 6
+						},
+						customHPFormat = {
+							type = "toggle",
+							name = "Custom HP Format",
+							desc = "Custom format for the health text on the player, target, and focus frames. (Will add custom input in the future.)",
+							order = 7,
+							set = function(info, value)
+								ZPR.db.profile.modules.customHPFormat = value
+								ZPR:ToggleModules()
+							end,
+							get = function(info)
+								return ZPR.db.profile.modules.customHPFormat
+							end
+						},
+					},
 				},
 			}
 		}
