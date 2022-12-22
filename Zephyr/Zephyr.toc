@@ -1,9 +1,9 @@
 ## Interface: 100002
 ## Title: Zephyr
-## Notes: Simple, clean, and elegant.
+## Notes: Simple, Clean.
 ## Author: Esruv
 ## SavedVariables: ZephyrDB
-## Version: 1.1.4
+## Version: 1.1.5
 ## OptionalDeps: Ace3
 
 # Embeds
