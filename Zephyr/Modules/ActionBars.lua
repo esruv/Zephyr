@@ -71,10 +71,6 @@ function macroText:OnEnable() -- hide macro text on Action Bars
 end
 
 function shortKeybindText:OnEnable()
-	if keybindText:IsEnabled() then
-		return
-	end
-
 	for _, bar in pairs(bars) do
 		for i = 1, NUM_ACTIONBAR_BUTTONS do
 			hooksecurefunc(_G[bar .. i], "Update", UpdateHotkey)

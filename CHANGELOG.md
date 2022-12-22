@@ -40,3 +40,7 @@ All notable changes to this project will be documented in this file.
 -   Implemented `Hide Buff Frame Expand/Collapse Button` for Miscellaneous.
 
 -   Tidied up the `Addon GUI`.
+
+## [1.1.1] 2022-12-22
+
+-   Fixed a problem with the `Shorten Keybind Text` option.
