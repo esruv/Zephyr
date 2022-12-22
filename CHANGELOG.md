@@ -53,3 +53,7 @@ All notable changes to this project will be documented in this file.
 ## [1.1.3] 2022-12-22
 
 -   Implemented `Custom HP Format` for Miscellaneous. (More or less for me.)
+
+## [1.1.4] 2022-12-22
+
+-   Fixed a problem with the "Default" profile.

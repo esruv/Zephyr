@@ -23,11 +23,12 @@ ZPR.defaults = {
 			targetCastBarOnTop = false,
 			focusCastBarOnTop = true,
 			combatIndicator = true,
-			customHPFormat = true,
 			-- Miscellaneous
-			talkingHead = true,
-			partyFrameText = true,
+			partyFrameTitle = true,
+			mouseoverRaidManager = true,
 			buffFrameCollapseExpand = true,
+			talkingHead = true,
+			customHPFormat = true,
 		}
 	}
 }
