@@ -7,7 +7,6 @@ local groupIndicator = ZPR:NewModule("groupIndicator", "AceEvent-3.0")
 local restIndicator = ZPR:NewModule("restIndicator", "AceEvent-3.0")
 local repColor = ZPR:NewModule("repColor", "AceEvent-3.0")
 local combatIndicator = ZPR:NewModule("combatIndicator", "AceEvent-3.0")
-local customHPFormat = ZPR:NewModule("customHPFormat", "AceEvent-3.0")
 local targetCastBarOnTop = ZPR:NewModule("targetCastBarOnTop", "AceEvent-3.0")
 local focusCastBarOnTop = ZPR:NewModule("focusCastBarOnTop", "AceEvent-3.0")
 
@@ -20,43 +19,43 @@ local targetFrameContextual = TargetFrame.TargetFrameContent.TargetFrameContentC
 local focusFrameContextual = FocusFrame.TargetFrameContent.TargetFrameContentContextual
 
 function classColors:OnEnable()
-	local function handleUnitFramePortraitUpdate(self)
-		local healthBar = self.HealthBar
-
-		if self.unit == "player" then
-			-- if player is in a vehicle color the pet frame instead
-			if UnitInVehicle(self.unit) then
-				healthBar = PetFrameHealthBar
+	hooksecurefunc("HealthBar_OnValueChanged", function(self)
+		if UnitIsPlayer(self.unit) and UnitIsConnected(self.unit) then
+			local c = RAID_CLASS_COLORS[select(2, UnitClass(self.unit))];
+			if c then
+				self:SetStatusBarColor(c.r, c.g, c.b)
+				self:SetStatusBarDesaturated(true)
 			else
-				healthBar = playerFrameMain.HealthBarArea.HealthBar
+				self:SetStatusBarColor(0.5, 0.5, 0.5)
+				self:SetStatusBarDesaturated(true)
 			end
-
-		elseif self.unit == "pet" then
-			healthBar = PetFrameHealthBar
-		elseif self.unit == "target" then
-			healthBar = targetFrameMain.HealthBar
-		elseif self.unit == "focus" then
-			healthBar = focusFrameMain.HealthBar
-		elseif self.unit == "vehicle" then
-			healthBar = playerFrameMain.HealthBarArea.HealthBar
+		elseif UnitIsPlayer(self.unit) then
+			self:SetStatusBarColor(0.5, 0.5, 0.5)
+			self:SetStatusBarDesaturated(true)
+		else
+			self:SetStatusBarColor(0.0, 1.0, 0.0)
+			self:SetStatusBarDesaturated(true)
 		end
+	end);
 
-		if not healthBar then
-			return
+	hooksecurefunc("UnitFrameHealthBar_Update", function(self)
+		if UnitIsPlayer(self.unit) and UnitIsConnected(self.unit) then
+			local c = RAID_CLASS_COLORS[select(2, UnitClass(self.unit))];
+			if c then
+				self:SetStatusBarColor(c.r, c.g, c.b)
+				self:SetStatusBarDesaturated(true)
+			else
+				self:SetStatusBarColor(0.5, 0.5, 0.5)
+				self:SetStatusBarDesaturated(true)
+			end
+		elseif UnitIsPlayer(self.unit) then
+			self:SetStatusBarColor(0.5, 0.5, 0.5)
+			self:SetStatusBarDesaturated(true)
+		else
+			self:SetStatusBarColor(0.0, 1.0, 0.0)
+			self:SetStatusBarDesaturated(true)
 		end
-
-		if UnitIsPlayer(self.unit) and UnitIsConnected(self.unit) and classColors:IsEnabled() then
-			local _, const_class = UnitClass(self.unit);
-			local r, g, b = GetClassColor(const_class)
-			healthBar:SetStatusBarDesaturated(true)
-			healthBar:SetStatusBarColor(r, g, b)
-		elseif UnitIsPlayer(self.unit) and not UnitIsConnected(self.unit) then
-			healthBar:SetStatusBarDesaturated(true)
-			healthBar:SetStatusBarColor(1, 1, 1)
-		end
-	end
-
-	hooksecurefunc("UnitFramePortrait_Update", handleUnitFramePortraitUpdate)
+	end);
 end
 
 function repColor:OnEnable()
@@ -158,53 +157,4 @@ function combatIndicator:OnEnable()
 	CI:SetScript("OnUpdate", function(self)
 		FrameOnUpdate(CFT)
 	end)
-end
-
-function customHPFormat:OnEnable()
-	local function handleUnitFrameHealthBar_Update(self, unit)
-		if unit == "player" then
-			if GetCVar("statusTextDisplay") == "PERCENT" then
-				return
-			end
-			local healthBar = targetFrameMain.HealthBar
-			local health = UnitHealth(unit)
-			local healthMax = UnitHealthMax(unit)
-			local healthPercent = math.floor(health / healthMax * 100)
-			local healthAbbreviated = math.floor(UnitHealth(unit) / 1000) .. "k"
-			local healthText = healthBar.TextString
-			healthText:SetText(healthAbbreviated)
-		elseif unit == "pet" then
-			if GetCVar("statusTextDisplay") == "PERCENT" then
-				return
-			end
-			local healthBar = targetFrameMain.HealthBar
-			local health = UnitHealth(unit)
-			local healthMax = UnitHealthMax(unit)
-			local healthPercent = math.floor(health / healthMax * 100)
-			local healthAbbreviated = math.floor(UnitHealth(unit) / 1000) .. "k"
-			local healthText = healthBar.TextString
-			healthText:SetText(healthAbbreviated)
-		elseif unit == "target" then
-			local healthBar = targetFrameMain.HealthBar
-			local health = UnitHealth(unit)
-			local healthMax = UnitHealthMax(unit)
-			local healthPercent = math.floor(health / healthMax * 100)
-			local healthAbbreviated = math.floor(UnitHealth(unit) / 1000) .. "k"
-			local healthText = healthBar.TextString
-			healthText:SetText(healthAbbreviated)
-		elseif unit == "focus" then
-			if GetCVar("statusTextDisplay") == "PERCENT" then
-				return
-			end
-			local healthBar = focusFrameMain.HealthBar
-			local health = UnitHealth(unit)
-			local healthMax = UnitHealthMax(unit)
-			local healthPercent = math.floor(health / healthMax * 100)
-			local healthAbbreviated = math.floor(UnitHealth(unit) / 1000) .. "k"
-			local healthText = healthBar.TextString
-			healthText:SetText(healthPercent)
-		end
-	end
-
-	hooksecurefunc("UnitFrameHealthBar_Update", handleUnitFrameHealthBar_Update)
 end

@@ -3,7 +3,7 @@
 ## Notes: Simple, Clean.
 ## Author: Esruv
 ## SavedVariables: ZephyrDB
-## Version: 1.1.5
+## Version: 1.1.6
 ## OptionalDeps: Ace3
 
 # Embeds

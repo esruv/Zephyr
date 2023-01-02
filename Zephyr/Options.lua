@@ -356,18 +356,18 @@ ZPR.options = {
 							width = "full",
 							order = 1
 						},
-						partyFrameTitle = {
+						mouseoverMicroMenu = {
 							type = "toggle",
-							name = "Party Frame Title",
-							desc = "Disable or enable the 'Party' text on the Party Frames Header.",
+							name = "Micro Menu",
+							desc = "Enable or disable the Micro Menu to only show when moused over.",
 							width = "0.285",
 							order = 2,
 							set = function(info, value)
-								ZPR.db.profile.modules.partyFrameTitle = value
+								ZPR.db.profile.modules.mouseoverMicroMenu = value
 								ZPR:ToggleModules()
 							end,
 							get = function(info)
-								return ZPR.db.profile.modules.partyFrameTitle
+								return ZPR.db.profile.modules.mouseoverMicroMenu
 							end
 						},
 						mouseoverRaidManager = {
@@ -410,17 +410,64 @@ ZPR.options = {
 								return ZPR.db.profile.modules.talkingHead
 							end
 						},
+						partyFrameTitle = {
+							type = "toggle",
+							name = "Party Frame Title",
+							desc = "Disable or enable the 'Party' text on the Party Frames Header.",
+							width = "0.285",
+							order = 6,
+							set = function(info, value)
+								ZPR.db.profile.modules.partyFrameTitle = value
+								ZPR:ToggleModules()
+							end,
+							get = function(info)
+								return ZPR.db.profile.modules.partyFrameTitle
+							end
+						},
+						header_Nameplates = {
+							type = "header",
+							name = "Nameplates",
+							width = "full",
+							order = 7
+						},
+						nameplateHPPercent = {
+							type = "toggle",
+							name = "HP Percent",
+							desc = "Enable or disable nameplate HP percent text.",
+							width = "0.285",
+							order = 8,
+							set = function(info, value)
+								ZPR.db.profile.modules.nameplateHPPercent = value
+								ZPR:ToggleModules()
+							end,
+							get = function(info)
+								return ZPR.db.profile.modules.nameplateHPPercent
+							end
+						},
+						nameplateArenaNumbers = {
+							type = "toggle",
+							name = "Arena Numbers",
+							desc = "Enable or disable renaming names to nameplate arena numbers.",
+							order = 9,
+							set = function(info, value)
+								ZPR.db.profile.modules.nameplateArenaNumbers = value
+								ZPR:ToggleModules()
+							end,
+							get = function(info)
+								return ZPR.db.profile.modules.nameplateArenaNumbers
+							end
+						},
 						header_CustomHP = {
 							type = "header",
 							name = "Custom Health Text",
 							width = "full",
-							order = 6
+							order = 10
 						},
 						customHPFormat = {
 							type = "toggle",
 							name = "Custom HP Format",
 							desc = "Custom format for the health text on the player, target, and focus frames. (Will add custom input in the future.)",
-							order = 7,
+							order = 11,
 							set = function(info, value)
 								ZPR.db.profile.modules.customHPFormat = value
 								ZPR:ToggleModules()

@@ -57,3 +57,14 @@ All notable changes to this project will be documented in this file.
 ## [1.1.4] 2022-12-22
 
 -   Fixed a problem with the "Default" profile.
+
+## [1.1.5] 2022-12-23
+
+-   Fixed a problem with the `Custom HP Format` option.
+-   Fixed a problem with the `Party Frame Title` option.
+
+## [1.1.6] 2023-01-02
+
+-   Implemented `Nameplate HP Percentage` for Miscellaneous.
+-   Implemented `Nameplate Arena Numbers` for Miscellaneous.
+-   Fixed a problem with the `Class Colors` option.
