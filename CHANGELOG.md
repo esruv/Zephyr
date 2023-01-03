@@ -74,3 +74,7 @@ All notable changes to this project will be documented in this file.
 -   Implemented `Party Frame Realm Names` for Miscellaneous.
 -   Implemented `Party Frame Player Name` for Miscellaneous.
 -   Implemented `Party Frame Role Icon` for Miscellaneous.
+
+## [1.1.8] 2023-01-02
+
+-   Fixed a problem with the `Micro Menu Mouseover` option.
