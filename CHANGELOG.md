@@ -78,3 +78,7 @@ All notable changes to this project will be documented in this file.
 ## [1.1.8] 2023-01-02
 
 -   Fixed a problem with the `Micro Menu Mouseover` option.
+
+## [1.1.9] 2023-01-02
+
+-   Removed `Micro Menu Mouseover` option. (Too messy to work with at the moment.)

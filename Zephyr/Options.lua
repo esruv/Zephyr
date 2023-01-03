@@ -360,25 +360,12 @@ ZPR.options = {
 							width = "full",
 							order = 1
 						},
-						mouseoverMicroMenu = {
-							type = "toggle",
-							name = "Micro Menu",
-							desc = "Enable or disable the Micro Menu to only show when moused over.",
-							width = "0.285",
-							order = 2,
-							set = function(info, value)
-								ZPR.db.profile.modules.mouseoverMicroMenu = value
-								ZPR:ToggleModules()
-							end,
-							get = function(info)
-								return ZPR.db.profile.modules.mouseoverMicroMenu
-							end
-						},
 						mouseoverRaidManager = {
 							type = "toggle",
 							name = "Raid Manager",
 							desc = "Enable or disable the Raid Manager to only show when moused over.",
-							order = 3,
+							width = "0.285",
+							order = 2,
 							set = function(info, value)
 								ZPR.db.profile.modules.mouseoverRaidManager = value
 								ZPR:ToggleModules()
@@ -391,8 +378,7 @@ ZPR.options = {
 							type = "toggle",
 							name = "Buff Frame Toggle",
 							desc = "Disable or enable the Buff Frame Collapse/Expand Button.",
-							width = "0.285",
-							order = 4,
+							order = 3,
 							set = function(info, value)
 								ZPR.db.profile.modules.buffFrameCollapseExpand = value
 								ZPR:ToggleModules()
@@ -405,7 +391,8 @@ ZPR.options = {
 							type = "toggle",
 							name = "Talking Head",
 							desc = "Disable or enable the talking head frame.",
-							order = 5,
+							width = "0.285",
+							order = 4,
 							set = function(info, value)
 								ZPR.db.profile.modules.talkingHead = value
 								ZPR:ToggleModules()
@@ -418,14 +405,14 @@ ZPR.options = {
 							type = "header",
 							name = "General Raid Frames Customization",
 							width = "full",
-							order = 6
+							order = 5
 						},
 						partyFrameTitle = {
 							type = "toggle",
 							name = "Party Frame Title",
 							desc = "Disable or enable the 'Party' text on the Party Frames Header.",
 							width = "0.285",
-							order = 7,
+							order = 6,
 							set = function(info, value)
 								ZPR.db.profile.modules.partyFrameTitle = value
 								ZPR:ToggleModules()
@@ -438,7 +425,7 @@ ZPR.options = {
 							type = "toggle",
 							name = "Realm Name",
 							desc = "Disable or enable the realm name on the Party Frames.",
-							order = 8,
+							order = 7,
 							set = function(info, value)
 								ZPR.db.profile.modules.partyFrameRealmName = value
 								ZPR:ToggleModules()
@@ -452,7 +439,7 @@ ZPR.options = {
 							name = "Player Name",
 							desc = "Disable or enable the player name on the Party Frames.",
 							width = "0.285",
-							order = 9,
+							order = 8,
 							set = function(info, value)
 								ZPR.db.profile.modules.partyFramePlayerName = value
 								ZPR:ToggleModules()

@@ -1,6 +1,5 @@
 local ZPR = LibStub("AceAddon-3.0"):GetAddon("Zephyr")
 
-local mouseoverMicroMenu = ZPR:NewModule("mouseoverMicroMenu", "AceEvent-3.0")
 local mouseoverRaidManager = ZPR:NewModule("mouseoverRaidManager", "AceEvent-3.0")
 local buffFrameCollapseExpand = ZPR:NewModule("buffFrameCollapseExpand", "AceEvent-3.0")
 local talkingHead = ZPR:NewModule("talkingHead", "AceEvent-3.0")
@@ -11,43 +10,6 @@ local partyFrameRealmName = ZPR:NewModule("partyFrameRealmName", "AceEvent-3.0")
 local partyFramePlayerName = ZPR:NewModule("partyFramePlayerName", "AceEvent-3.0")
 local partyFrameRoleIcon = ZPR:NewModule("partyFrameRoleIcon", "AceEvent-3.0")
 local customHPFormat = ZPR:NewModule("customHPFormat", "AceEvent-3.0")
-
-function mouseoverMicroMenu:OnEnable()
-
-	local BAG_BUTTONS = {
-		MainMenuBarBackpackButton,
-		CharacterBag0Slot,
-		CharacterBag1Slot,
-		CharacterBag2Slot,
-		CharacterBag3Slot,
-		CharacterReagentBag0Slot,
-		BagBarExpandToggle,
-	}
-
-	for i = 1, #BAG_BUTTONS do
-		BAG_BUTTONS[i]:Hide()
-	end
-
-	local microMenu = MicroButtonAndBagsBar
-	microMenu:SetAlpha(0)
-	local function FindParent(frame, target)
-		if frame == target then
-			return true
-		elseif frame then
-			return FindParent(frame:GetParent(), target)
-		end
-	end
-
-	microMenu:HookScript("OnEnter", function(self)
-		self:SetAlpha(1)
-	end)
-
-	microMenu:HookScript("OnLeave", function(self)
-		if not FindParent(GetMouseFocus(), self) then
-			self:SetAlpha(0)
-		end
-	end)
-end
 
 function mouseoverRaidManager:OnEnable()
 	local raidManager = CompactRaidFrameManager
