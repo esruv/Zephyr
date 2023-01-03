@@ -34,6 +34,11 @@ Simple & lightweight World of Warcraft addon that customizes the default UI.
 -   Raid Frame Manager Mouseover (Mouseover to show/hide the Raid Frame Manager).
 -   Hide Buff Frame Expand/Collapse Button.
 -   Hide Talking Head Frame.
+-   Nameplate HP Percentage
+-   Nameplate Arena Numbers
+-   Hide Realm Name on Raid Frames
+-   Hide Player Name on Raid Frames
+-   Hide Role Icon on Raid Frames
 -   Custom HP Format (No Options Currently, Quite Personal)
 
 ## Options

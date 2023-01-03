@@ -68,3 +68,9 @@ All notable changes to this project will be documented in this file.
 -   Implemented `Nameplate HP Percentage` for Miscellaneous.
 -   Implemented `Nameplate Arena Numbers` for Miscellaneous.
 -   Fixed a problem with the `Class Colors` option.
+
+## [1.1.7] 2023-01-02
+
+-   Implemented `Party Frame Realm Names` for Miscellaneous.
+-   Implemented `Party Frame Player Name` for Miscellaneous.
+-   Implemented `Party Frame Role Icon` for Miscellaneous.

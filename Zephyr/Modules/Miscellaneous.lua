@@ -7,6 +7,9 @@ local talkingHead = ZPR:NewModule("talkingHead", "AceEvent-3.0")
 local nameplateHPPercent = ZPR:NewModule("nameplateHPPercent", "AceEvent-3.0")
 local nameplateArenaNumbers = ZPR:NewModule("nameplateArenaNumbers", "AceEvent-3.0")
 local partyFrameTitle = ZPR:NewModule("partyFrameTitle", "AceEvent-3.0")
+local partyFrameRealmName = ZPR:NewModule("partyFrameRealmName", "AceEvent-3.0")
+local partyFramePlayerName = ZPR:NewModule("partyFramePlayerName", "AceEvent-3.0")
+local partyFrameRoleIcon = ZPR:NewModule("partyFrameRoleIcon", "AceEvent-3.0")
 local customHPFormat = ZPR:NewModule("customHPFormat", "AceEvent-3.0")
 
 function mouseoverRaidManager:OnEnable()
@@ -126,6 +129,29 @@ end
 
 function partyFrameTitle:OnEnable()
 	CompactPartyFrameTitle:SetAlpha(0)
+end
+
+function partyFrameRealmName:OnEnable()
+	hooksecurefunc("CompactUnitFrame_UpdateName", function(frame)
+		if frame and not frame:IsForbidden() then
+			local frame_name = frame:GetName()
+			if frame_name and frame_name:match("^CompactRaidFrame%d") or ("^CompactRaidGroup%dMember%d") or
+				("^CompactPartyFrameMember%d") and frame.unit and frame.name then
+				local unit_name = GetUnitName(frame.unit, true)
+				if unit_name then
+					frame.name:SetText(unit_name:match("[^-]+"))
+				end
+			end
+		end
+	end)
+end
+
+function partyFramePlayerName:OnEnable()
+	DefaultCompactUnitFrameOptions.displayName = false
+end
+
+function partyFrameRoleIcon:OnEnable()
+	DefaultCompactUnitFrameOptions.displayRoleIcon = false
 end
 
 function customHPFormat:OnEnable()

@@ -25,9 +25,13 @@ ZPR.defaults = {
 			combatIndicator = true,
 			-- Miscellaneous
 			partyFrameTitle = true,
+			partyFrameRealmName = true,
+			partyFramePlayerName = true,
 			mouseoverRaidManager = true,
 			buffFrameCollapseExpand = true,
 			talkingHead = true,
+			nameplateHPPercent = true,
+			nameplateArenaNumbers = true,
 			customHPFormat = true,
 		}
 	}
@@ -424,18 +428,58 @@ ZPR.options = {
 								return ZPR.db.profile.modules.partyFrameTitle
 							end
 						},
+						partyFrameRealmName = {
+							type = "toggle",
+							name = "Party Frame Realm Name",
+							desc = "Disable or enable the realm name on the Party Frames.",
+							order = 7,
+							set = function(info, value)
+								ZPR.db.profile.modules.partyFrameRealmName = value
+								ZPR:ToggleModules()
+							end,
+							get = function(info)
+								return ZPR.db.profile.modules.partyFrameRealmName
+							end
+						},
+						partyFramePlayerName = {
+							type = "toggle",
+							name = "Party Frame Player Name",
+							desc = "Disable or enable the player name on the Party Frames.",
+							width = "0.285",
+							order = 8,
+							set = function(info, value)
+								ZPR.db.profile.modules.partyFramePlayerName = value
+								ZPR:ToggleModules()
+							end,
+							get = function(info)
+								return ZPR.db.profile.modules.partyFramePlayerName
+							end
+						},
+						partyFrameRoleIcon = {
+							type = "toggle",
+							name = "Party Frame Role Icon",
+							desc = "Disable or enable the role icon on the Party Frames.",
+							order = 9,
+							set = function(info, value)
+								ZPR.db.profile.modules.partyFrameRoleIcon = value
+								ZPR:ToggleModules()
+							end,
+							get = function(info)
+								return ZPR.db.profile.modules.partyFrameRoleIcon
+							end
+						},
 						header_Nameplates = {
 							type = "header",
 							name = "Nameplates",
 							width = "full",
-							order = 7
+							order = 10
 						},
 						nameplateHPPercent = {
 							type = "toggle",
 							name = "HP Percent",
 							desc = "Enable or disable nameplate HP percent text.",
 							width = "0.285",
-							order = 8,
+							order = 11,
 							set = function(info, value)
 								ZPR.db.profile.modules.nameplateHPPercent = value
 								ZPR:ToggleModules()
@@ -448,7 +492,7 @@ ZPR.options = {
 							type = "toggle",
 							name = "Arena Numbers",
 							desc = "Enable or disable renaming names to nameplate arena numbers.",
-							order = 9,
+							order = 12,
 							set = function(info, value)
 								ZPR.db.profile.modules.nameplateArenaNumbers = value
 								ZPR:ToggleModules()
@@ -461,13 +505,13 @@ ZPR.options = {
 							type = "header",
 							name = "Custom Health Text",
 							width = "full",
-							order = 10
+							order = 13
 						},
 						customHPFormat = {
 							type = "toggle",
 							name = "Custom HP Format",
 							desc = "Custom format for the health text on the player, target, and focus frames. (Will add custom input in the future.)",
-							order = 11,
+							order = 14,
 							set = function(info, value)
 								ZPR.db.profile.modules.customHPFormat = value
 								ZPR:ToggleModules()
