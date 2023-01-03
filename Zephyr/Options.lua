@@ -414,12 +414,18 @@ ZPR.options = {
 								return ZPR.db.profile.modules.talkingHead
 							end
 						},
+						header_RaidFrames = {
+							type = "header",
+							name = "General Raid Frames Customization",
+							width = "full",
+							order = 6
+						},
 						partyFrameTitle = {
 							type = "toggle",
 							name = "Party Frame Title",
 							desc = "Disable or enable the 'Party' text on the Party Frames Header.",
 							width = "0.285",
-							order = 6,
+							order = 7,
 							set = function(info, value)
 								ZPR.db.profile.modules.partyFrameTitle = value
 								ZPR:ToggleModules()
@@ -430,9 +436,9 @@ ZPR.options = {
 						},
 						partyFrameRealmName = {
 							type = "toggle",
-							name = "Party Frame Realm Name",
+							name = "Realm Name",
 							desc = "Disable or enable the realm name on the Party Frames.",
-							order = 7,
+							order = 8,
 							set = function(info, value)
 								ZPR.db.profile.modules.partyFrameRealmName = value
 								ZPR:ToggleModules()
@@ -443,10 +449,10 @@ ZPR.options = {
 						},
 						partyFramePlayerName = {
 							type = "toggle",
-							name = "Party Frame Player Name",
+							name = "Player Name",
 							desc = "Disable or enable the player name on the Party Frames.",
 							width = "0.285",
-							order = 8,
+							order = 9,
 							set = function(info, value)
 								ZPR.db.profile.modules.partyFramePlayerName = value
 								ZPR:ToggleModules()
@@ -457,7 +463,7 @@ ZPR.options = {
 						},
 						partyFrameRoleIcon = {
 							type = "toggle",
-							name = "Party Frame Role Icon",
+							name = "Role Icon",
 							desc = "Disable or enable the role icon on the Party Frames.",
 							order = 9,
 							set = function(info, value)
@@ -470,7 +476,7 @@ ZPR.options = {
 						},
 						header_Nameplates = {
 							type = "header",
-							name = "Nameplates",
+							name = "General Nameplates Customization",
 							width = "full",
 							order = 10
 						},
