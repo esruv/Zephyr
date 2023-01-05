@@ -21,13 +21,13 @@ function castBarTimer:OnEnable()
 
 	local castBarTimersInitialized = false
 
-	local function createChildTimerFrame(parent, xOffset, yOffset)
-		local timerFrame = CreateFrame("Frame", "ZPRCastBarTimer" .. parent:GetName(), parent)
+	local function timerFrame(parent, xOffset, yOffset)
+		local timerFrame = CreateFrame("Frame", "castBarTimer" .. parent:GetName(), parent)
 		timerFrame:SetWidth(1)
 		timerFrame:SetHeight(1)
 		timerFrame:SetPoint("TOPRIGHT", parent, "TOPRIGHT", xOffset, yOffset)
 		timerFrame.text = timerFrame:CreateFontString(nil, "ARTWORK")
-		timerFrame.text:SetFont("Fonts\\FRIZQT__.TTF", 10, "")
+		timerFrame.text:SetFontObject(SystemFont_Shadow_Small)
 		timerFrame.text:SetPoint("CENTER", 0, 0)
 	end
 
@@ -58,33 +58,36 @@ function castBarTimer:OnEnable()
 	end
 
 	local function handlePlayerCastBar_OnUpdate(self, ...)
-		setTimerText(self, _G["ZPRCastBarTimerPlayerCastingBarFrame"])
+		setTimerText(self, _G["castBarTimerPlayerCastingBarFrame"])
 	end
 
 	local function handleTargetSpellBar_OnUpdate(self, ...)
-		setTimerText(self, _G["ZPRCastBarTimerTargetFrameSpellBar"])
+		setTimerText(self, _G["castBarTimerTargetFrameSpellBar"])
 	end
 
 	local function handleFocusSpellBar_OnUpdate(self, ...)
-		setTimerText(self, _G["ZPRCastBarTimerFocusFrameSpellBar"])
+		setTimerText(self, _G["castBarTimerFocusFrameSpellBar"])
 	end
 
 	if not castBarTimersInitialized then
-		createChildTimerFrame(PlayerCastingBarFrame, -14, -17)
+		timerFrame(PlayerCastingBarFrame, -14, -17)
 		PlayerCastingBarFrame:HookScript("OnUpdate", handlePlayerCastBar_OnUpdate)
-		createChildTimerFrame(TargetFrameSpellBar, -12, -16)
+
+		timerFrame(TargetFrameSpellBar, -12, -16)
 		TargetFrameSpellBar:HookScript("OnUpdate", handleTargetSpellBar_OnUpdate)
-		createChildTimerFrame(FocusFrameSpellBar, -12, -16)
+
+		timerFrame(FocusFrameSpellBar, -12, -16)
 		FocusFrameSpellBar:HookScript("OnUpdate", handleFocusSpellBar_OnUpdate)
+
 		castBarTimersInitialized = true
 	end
 
 	-- Prevent the text from flowing into the castbar timer
 	realignSpellNameText()
 
-	_G["ZPRCastBarTimerPlayerCastingBarFrame"]:Show()
-	_G["ZPRCastBarTimerTargetFrameSpellBar"]:Show()
-	_G["ZPRCastBarTimerFocusFrameSpellBar"]:Show()
+	_G["castBarTimerPlayerCastingBarFrame"]:Show()
+	_G["castBarTimerTargetFrameSpellBar"]:Show()
+	_G["castBarTimerFocusFrameSpellBar"]:Show()
 end
 
 function playerCastBarIcon:OnEnable()
