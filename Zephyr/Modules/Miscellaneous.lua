@@ -12,33 +12,56 @@ local partyFrameRoleIcon = ZPR:NewModule("partyFrameRoleIcon", "AceEvent-3.0")
 local customHPFormat = ZPR:NewModule("customHPFormat", "AceEvent-3.0")
 
 function mouseoverRaidManager:OnEnable()
-	local raidManager = CompactRaidFrameManager
-	raidManager:SetAlpha(0)
-	local function FindParent(frame, target)
-		if frame == target then
-			return true
-		elseif frame then
-			return FindParent(frame:GetParent(), target)
+	local function WaitForMouseToGoAway(self)
+		if not self:IsMouseOver() then
+			self:SetScript("OnUpdate", nil)
+			self:SetAlpha(0)
 		end
 	end
 
-	raidManager:HookScript("OnEnter", function(self)
+	CompactRaidFrameManager:HookScript("OnEnter", function(self)
+		self:SetScript("OnUpdate", nil)
 		self:SetAlpha(1)
 	end)
 
-	raidManager:HookScript("OnLeave", function(self)
-		if raidManager.collapsed and not FindParent(GetMouseFocus(), self) then
-			self:SetAlpha(0)
+	CompactRaidFrameManager:HookScript("OnLeave", function(self)
+		if self.collapsed then
+			self:SetScript("OnUpdate", WaitForMouseToGoAway)
 		end
 	end)
 
-	raidManager.toggleButton:HookScript("OnClick", function()
-		if raidManager.collapsed then
-			raidManager:SetAlpha(0)
+	local function CheckMouseOver(self)
+		if self:IsMouseOver() and not self.collapsed then
+			self:GetScript("OnEnter")(self)
+		else
+			self:GetScript("OnLeave")(self)
 		end
-	end)
+	end
 
-	raidManager.container:SetIgnoreParentAlpha(true)
+	hooksecurefunc("CompactRaidFrameManager_Collapse", function(self) CheckMouseOver(CompactRaidFrameManager) end)
+	hooksecurefunc("CompactRaidFrameManager_Expand", function(self) CheckMouseOver(CompactRaidFrameManager) end)
+
+	CompactRaidFrameManager:HookScript("OnShow", function(self) CheckMouseOver(CompactRaidFrameManager) end)
+
+	local function CRFCUpdate(self)
+		if InCombatLockdown() then
+			CompactRaidFrameContainer:UnregisterAllEvents();
+		elseif not InCombatLockdown() then
+			CompactRaidFrameContainer:RegisterEvent("DISPLAY_SIZE_CHANGED");
+			CompactRaidFrameContainer:RegisterEvent("UI_SCALE_CHANGED");
+			CompactRaidFrameContainer:RegisterEvent("GROUP_ROSTER_UPDATE");
+			CompactRaidFrameContainer:RegisterEvent("UNIT_FLAGS");
+			CompactRaidFrameContainer:RegisterEvent("PLAYER_FLAGS_CHANGED");
+			CompactRaidFrameContainer:RegisterEvent("PLAYER_ENTERING_WORLD");
+			CompactRaidFrameContainer:RegisterEvent("PARTY_LEADER_CHANGED");
+			CompactRaidFrameContainer:RegisterEvent("RAID_TARGET_UPDATE");
+			CompactRaidFrameContainer:RegisterEvent("PLAYER_TARGET_CHANGED");
+			CompactRaidFrameContainer:SetParent(UIParent)
+		end
+	end
+
+	hooksecurefunc("CompactUnitFrame_UpdateVisible", CRFCUpdate)
+	hooksecurefunc("CompactUnitFrame_UpdateAll", CRFCUpdate)
 end
 
 function buffFrameCollapseExpand:OnEnable()

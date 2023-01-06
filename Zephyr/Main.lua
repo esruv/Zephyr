@@ -22,12 +22,12 @@ function ZPR:OnInitialize()
 end
 
 function ZPR:OnEnable()
-	self:Print("Zephyr has been enabled.")
+	self:Print("Loaded")
 	self:ToggleModules()
 end
 
 function ZPR:OnDisable()
-	self:Print("Zephyr has been disabled.")
+	self:Print("Unloaded")
 	self:ToggleModules()
 end
 
