@@ -86,3 +86,9 @@ All notable changes to this project will be documented in this file.
 ## [1.2.0] 2023-01-06
 
 -   Refined the `Raid Frame Manager Mouseover` option.
+
+## [1.2.1] 2023-01-08
+
+-   Remove unused embeds.
+-   Embed `TaintLess`.
+-   Changed notes in `Zephyr.toc` file.
