@@ -3,6 +3,7 @@ local ZPR = LibStub("AceAddon-3.0"):GetAddon("Zephyr")
 local minimapZoomButtons = ZPR:NewModule("minimapZoomButtons", "AceEvent-3.0")
 local castBarTimer = ZPR:NewModule("castBarTimer", "AceEvent-3.0")
 local playerCastBarIcon = ZPR:NewModule("playerCastBarIcon", "AceEvent-3.0")
+local vendorTrashButton = ZPR:NewModule("vendorTrashButton", "AceEvent-3.0")
 
 function minimapZoomButtons:OnEnable()
 	Minimap.ZoomIn:SetAlpha(0)
@@ -95,4 +96,48 @@ function playerCastBarIcon:OnEnable()
 	PlayerCastingBarFrame.Icon:SetSize(22, 22)
 	PlayerCastingBarFrame.Icon:SetPoint(point, relativeTo, relativePoint, -2, -6)
 	PlayerCastingBarFrame.Icon:Show()
+end
+
+function vendorTrashButton:OnEnable()
+	-- create vendor button
+	local VendorButton = CreateFrame("Button", nil, MerchantFrame.NineSlice, "UIPanelButtonTemplate")
+	VendorButton:SetPoint("LEFT", MerchantFrame.NineSlice.BottomEdge, -17, 1)
+	VendorButton:SetSize(70, 22)
+	VendorButton:SetText("Sell Trash")
+	VendorButton:SetScript("OnClick", function()
+		Vendor()
+	end)
+
+	function Vendor()
+		local maxSold = 12 -- max number of items to sell at once
+		-- iterate through all bags and sell all grey items
+		for bag = 0, 4 do
+			for slot = 1, C_Container.GetContainerNumSlots(bag) do
+				itemLink = C_Container.GetContainerItemLink(bag, slot)
+				if itemLink then
+					itemRarity = select(3, GetItemInfo(itemLink))
+					itemSellPrice = select(11, GetItemInfo(itemLink))
+					if itemRarity == 0 then
+						C_Container.UseContainerItem(bag, slot)
+						if not totalSellPrice then
+							totalSellPrice = 0
+						end
+						totalSellPrice = totalSellPrice + itemSellPrice
+						maxSold = maxSold - 1
+						if maxSold == 0 then
+							return
+						end
+					end
+				end
+			end
+		end
+
+		-- print total sell price
+		if totalSellPrice then
+			print("Sold junk items for " .. GetCoinTextureString(totalSellPrice))
+			totalSellPrice = nil
+		else
+			print("No grey items to sell")
+		end
+	end
 end

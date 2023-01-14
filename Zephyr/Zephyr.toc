@@ -3,7 +3,7 @@
 ## Notes: Simple.
 ## Author: Esruv
 ## SavedVariables: ZephyrDB
-## Version: 1.2.1
+## Version: 1.2.2
 ## OptionalDeps: Ace3
 
 # Taintless

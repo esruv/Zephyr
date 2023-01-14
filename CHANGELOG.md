@@ -92,3 +92,5 @@ All notable changes to this project will be documented in this file.
 -   Remove unused embeds.
 -   Embed `TaintLess`.
 -   Changed notes in `Zephyr.toc` file.
+
+## [1.2.2] 2023-01-14

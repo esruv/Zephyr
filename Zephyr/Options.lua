@@ -136,6 +136,19 @@ ZPR.options = {
 								return ZPR.db.profile.modules.playerCastBarIcon
 							end
 						},
+						vendorTrashButton = {
+							type = "toggle",
+							name = "Vendor Trash Button",
+							desc = "Adds a button to the vendor frame to automatically sell all trash items. (12 max sold per click)",
+							order = 6,
+							set = function(info, value)
+								ZPR.db.profile.modules.vendorTrashButton = value
+								ZPR:ToggleModules()
+							end,
+							get = function(info)
+								return ZPR.db.profile.modules.vendorTrashButton
+							end
+						},
 					}
 				},
 				actionBars = {
